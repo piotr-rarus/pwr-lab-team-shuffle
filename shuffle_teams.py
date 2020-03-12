@@ -9,7 +9,6 @@ import pandas as pd
 class Student:
     name: str
     index: int
-    is_alive: bool
     team: Optional[int] = None
 
 
@@ -17,8 +16,8 @@ def __load_students(path: str) -> List[Student]:
     students_csv = pd.read_csv(path, keep_default_na=False)
 
     students = [
-        Student(name, index, is_alive)
-        for name, is_alive, index
+        Student(name, index)
+        for name, index
         in students_csv.values
     ]
 
@@ -58,7 +57,6 @@ def main(in_csv: str, out_csv: str, random_seed: str, team_size: int):
     """
 
     students = __load_students(in_csv)
-    students = [student for student in students if student.is_alive]
 
     random.seed(random_seed)
     random.shuffle(students)
